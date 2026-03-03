@@ -72,7 +72,7 @@ public class HttpEce {
         byte[] nonce = keyAndNonce[1];
 
         // Note: Cipher adds the tag to the end of the ciphertext
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding", "BC");
+        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
         GCMParameterSpec params = new GCMParameterSpec(TAG_SIZE * 8, nonce);
         cipher.init(ENCRYPT_MODE, new SecretKeySpec(key, "AES"), params);
 
@@ -101,7 +101,7 @@ public class HttpEce {
      * @param version AES128GCM or AESGCM.
      * @return
      */
-    public byte[] decrypt(byte[] payload, byte[] salt, byte[] key, String keyid, Encoding version) throws InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidAlgorithmParameterException, BadPaddingException, NoSuchProviderException, NoSuchPaddingException {
+    public byte[] decrypt(byte[] payload, byte[] salt, byte[] key, String keyid, Encoding version) throws InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidAlgorithmParameterException, BadPaddingException, NoSuchPaddingException {
         byte[] body;
 
         // Parse and strip the header
@@ -136,8 +136,8 @@ public class HttpEce {
         };
     }
 
-    public byte[] decryptRecord(byte[] ciphertext, byte[] key, byte[] nonce, Encoding version) throws NoSuchPaddingException, NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding", "BC");
+    public byte[] decryptRecord(byte[] ciphertext, byte[] key, byte[] nonce, Encoding version) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
         GCMParameterSpec params = new GCMParameterSpec(TAG_SIZE * 8, nonce);
         cipher.init(DECRYPT_MODE, new SecretKeySpec(key, "AES"), params);
 

@@ -5,7 +5,6 @@ import org.bouncycastle.jce.interfaces.ECPublicKey;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 
@@ -54,15 +53,15 @@ public class Notification {
         this(endpoint, userPublicKey, userAuth, payload, 2419200);
     }
 
-    public Notification(String endpoint, String userPublicKey, String userAuth, byte[] payload) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException {
+    public Notification(String endpoint, String userPublicKey, String userAuth, byte[] payload) throws NoSuchAlgorithmException, InvalidKeySpecException {
         this(endpoint, Utils.loadPublicKey(userPublicKey), Base64Encoder.decode(userAuth), payload);
     }
 
-    public Notification(String endpoint, String userPublicKey, String userAuth, String payload) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException {
+    public Notification(String endpoint, String userPublicKey, String userAuth, String payload) throws NoSuchAlgorithmException, InvalidKeySpecException {
         this(endpoint, Utils.loadPublicKey(userPublicKey), Base64Encoder.decode(userAuth), payload.getBytes(UTF_8));
     }
 
-    public Notification(Subscription subscription, String payload) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException {
+    public Notification(Subscription subscription, String payload) throws NoSuchAlgorithmException, InvalidKeySpecException {
         this(subscription.endpoint, subscription.keys.p256dh, subscription.keys.auth, payload);
     }
 

@@ -18,7 +18,6 @@ import java.security.*;
 
 import static nl.martijndwars.webpush.Utils.ALGORITHM;
 import static nl.martijndwars.webpush.Utils.CURVE;
-import static org.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME;
 
 public class GenerateKeyHandler implements HandlerInterface {
     private GenerateKeyCommand generateKeyCommand;
@@ -28,7 +27,7 @@ public class GenerateKeyHandler implements HandlerInterface {
     }
 
     @Override
-    public void run() throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchProviderException, IOException {
+    public void run() throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, IOException {
         KeyPair keyPair = generateKeyPair();
 
         ECPublicKey publicKey = (ECPublicKey) keyPair.getPublic();
@@ -53,13 +52,12 @@ public class GenerateKeyHandler implements HandlerInterface {
      *
      * @return
      * @throws InvalidAlgorithmParameterException
-     * @throws NoSuchProviderException
      * @throws NoSuchAlgorithmException
      */
-    public KeyPair generateKeyPair() throws InvalidAlgorithmParameterException, NoSuchProviderException, NoSuchAlgorithmException {
+    public KeyPair generateKeyPair() throws InvalidAlgorithmParameterException, NoSuchAlgorithmException {
         ECNamedCurveParameterSpec parameterSpec = ECNamedCurveTable.getParameterSpec(CURVE);
 
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(ALGORITHM, PROVIDER_NAME);
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(ALGORITHM);
         keyPairGenerator.initialize(parameterSpec);
 
         return keyPairGenerator.generateKeyPair();

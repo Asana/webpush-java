@@ -106,12 +106,11 @@ public class PushService {
      *
      * @return
      * @throws NoSuchAlgorithmException
-     * @throws NoSuchProviderException
      * @throws InvalidAlgorithmParameterException
      */
-    private static KeyPair generateLocalKeyPair() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException {
+    private static KeyPair generateLocalKeyPair() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException {
         ECNamedCurveParameterSpec parameterSpec = ECNamedCurveTable.getParameterSpec("prime256v1");
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDH", "BC");
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDH");
         keyPairGenerator.initialize(parameterSpec);
 
         return keyPairGenerator.generateKeyPair();
@@ -302,7 +301,7 @@ public class PushService {
      * @param publicKey
      * @return
      */
-    public PushService setPublicKey(String publicKey) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException {
+    public PushService setPublicKey(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         setPublicKey(Utils.loadPublicKey(publicKey));
 
         return this;
@@ -334,7 +333,7 @@ public class PushService {
      * @param privateKey
      * @return
      */
-    public PushService setPrivateKey(String privateKey) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException {
+    public PushService setPrivateKey(String privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         setPrivateKey(Utils.loadPrivateKey(privateKey));
 
         return this;
