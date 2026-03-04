@@ -1,17 +1,20 @@
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            groupId = 'com.github.asana'
+            artifactId = 'webpush-java-asana-fork'
+
             from components.java
             artifact sourcesJar
             artifact javadocJar
             pom {
-                name = 'web-push'
-                description = 'A Web Push library for Java.'
-                url = 'https://github.com/web-push-libs/webpush-java'
+                name = 'webpush-java-asana-fork'
+                description = 'A Web Push library for Java (Asana fork).'
+                url = 'https://github.com/Asana/webpush-java'
                 scm {
-                    connection = 'scm:git:git@github.com:web-push-libs/webpush-java.git'
-                    developerConnection = 'scm:git:git@github.com:web-push-libs/webpush-java.git'
-                    url = 'git@github.com:web-push-libs/webpush-java.git'
+                    connection = 'scm:git:git@github.com:Asana/webpush-java.git'
+                    developerConnection = 'scm:git:git@github.com:Asana/webpush-java.git'
+                    url = 'git@github.com:Asana/webpush-java.git'
                 }
                 licenses {
                     license {
@@ -27,28 +30,11 @@ publishing {
                     }
                 }
             }
-
         }
     }
     repositories {
         maven {
-            credentials {
-                username ossrhUsername
-                password ossrhPassword
-            }
-            url getRepositoryUrl()
+            url = uri("${buildDir}/repo")
         }
-    }
-}
-
-signing {
-    sign publishing.publications.mavenJava
-}
-
-def getRepositoryUrl() {
-    if (version.endsWith('SNAPSHOT')) {
-        return 'https://oss.sonatype.org/content/repositories/snapshots/'
-    } else {
-        return 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
     }
 }
